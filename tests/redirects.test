@@ -20,7 +20,7 @@ TestPrintSomething()
 
 InitFunction()
 { 
-    shuRegest TestScriptExists
+    shuRegTest TestScriptExists
     shuRegTest TestPrintSomething 
 } 
 
