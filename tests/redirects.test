@@ -1,0 +1,27 @@
+#!/bin/sh 
+# redirects.test - tests to make sure that the proper directory structure and redirect files are created
+. "ShUnit/shUnit"
+
+# Include script to be tested 
+. ./../redirects.sh
+
+TestScriptExists()
+{
+	shuNonZeroFile "../redirects.sh"
+}
+
+TestPrintSomething()
+{
+    EXPECTED="this is a test" 
+    RESULT=`test_function "$EXPECTED"`
+    test "${EXPECTED}" = "${RESULT}" 
+    shuAssert "Test test_function" $?
+} 
+
+InitFunction()
+{ 
+    shuRegest TestScriptExists
+    shuRegTest TestPrintSomething 
+} 
+
+shuStart InitFunction
