@@ -10,10 +10,11 @@ TestScriptExists()
 	shuNonZeroFile "../redirects.sh"
 }
 
-TestPrintSomething()
+TestPrintRedirectScript()
 {
-    EXPECTED="this is a test" 
-    RESULT=`test_function "$EXPECTED"`
+    EXPECTED="<html><head><meta http-equiv=\"Refresh\" content=\"2;url=http://www.google.com\" /></head><body><p>This post has moved. Now directing you to the new site. If you are not redirected in the next 5 seconds, please click <a href =\"http://www.google.com\">here</a></p></body></html>"
+	ARG="http://www.google.com"
+    RESULT=`print_redirect_script "$ARG"`
     test "${EXPECTED}" = "${RESULT}" 
     shuAssert "Test test_function" $?
 } 
@@ -21,7 +22,7 @@ TestPrintSomething()
 InitFunction()
 { 
     shuRegTest TestScriptExists
-    shuRegTest TestPrintSomething 
+    shuRegTest TestPrintRedirectScript 
 } 
 
 shuStart InitFunction
