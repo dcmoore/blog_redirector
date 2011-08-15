@@ -16,13 +16,29 @@ TestPrintRedirectScript()
 	ARG="http://www.google.com"
     RESULT=`print_redirect_script "$ARG"`
     test "${EXPECTED}" = "${RESULT}" 
-    shuAssert "Test test_function" $?
-} 
+    shuAssert "Test TestPrintRedirectScript()" $?
+}
+
+TestDirectoryStructure()
+{
+    EXPECTED="0"
+	ARG1="google"
+	ARG2="http://www.google.com"
+    RESULT=`make_new_directory_and_add_redirect "$ARG1 $ARG2"`
+	if [ -f "$ARG1/index.html" ]; then
+		EXPECTED="1"
+	fi
+    test "${EXPECTED}" = "1" 
+    shuAssert "Test TestDirectoryStructure()" $?
+	rm "$ARG1/index.html"
+	rmdir $ARG1
+}
 
 InitFunction()
 { 
     shuRegTest TestScriptExists
     shuRegTest TestPrintRedirectScript 
+	shuRegTest TestDirectoryStructure
 } 
 
 shuStart InitFunction
